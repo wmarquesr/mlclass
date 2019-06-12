@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7bba6c47-c9b3-4d79-a6a2-5b888dd5f599" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/HillClimbing/HillClimbing.py" beforeDir="false" afterPath="$PROJECT_DIR$/HillClimbing/HillClimbing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,10 +15,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HillClimbing/HillClimbing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+            <state relative-caret-position="270">
+              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#2#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,12 +101,12 @@
       <option name="presentableId" value="Default" />
       <updated>1560267641447</updated>
       <workItem from="1560267642598" duration="384000" />
-      <workItem from="1560362125337" duration="4608000" />
+      <workItem from="1560362125337" duration="7236000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4992000" />
+    <option name="totallyTimeSpent" value="7620000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="111" y="36" width="1763" height="1015" extended-state="0" />
@@ -144,10 +143,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/HillClimbing/HillClimbing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+        <state relative-caret-position="270">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#2#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

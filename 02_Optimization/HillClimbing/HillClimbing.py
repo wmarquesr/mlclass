@@ -1,6 +1,4 @@
-import math
-
-
+import json
 import requests
 import random
 
@@ -28,7 +26,12 @@ def checkGain(currentPosition):
         phi3 = currentPosition[5]
         s = "http://localhost:8080/antenna/simulate?phi1=" + str(phi1) + "&theta1=" + str(theta1) + "&phi2=" + str(phi2) + "&theta2=" + str(theta2) + "&phi3=" + str(phi3) + "&theta3=" + str(theta3)
         request = requests.get(s)
-        gain = request.text
+        r = request.text
+
+        gain = ''
+        for i in range(10):
+            gain = gain + str(r[i])
+            #gain = gain + str(r[2])
 
 
         # NEED TO RETURN THE GAIN FROM S
