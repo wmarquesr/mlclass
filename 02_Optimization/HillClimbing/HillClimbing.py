@@ -35,6 +35,7 @@ def checkGain(currentPosition):
 
 
         # NEED TO RETURN THE GAIN FROM S
+        gain = float(gain)
         return gain
 
 
