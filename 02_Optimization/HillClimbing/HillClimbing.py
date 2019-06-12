@@ -1,5 +1,10 @@
 import math
+
+
+import requests
 import random
+
+
 
 
 def randThetaPhi():
@@ -21,9 +26,13 @@ def checkGain(currentPosition):
         phi1 = currentPosition[3]
         phi2 = currentPosition[4]
         phi3 = currentPosition[5]
-        s = "http://localhost:8080/antenna/simulate?phi1="+phi1+"&theta1="+theta1+"&phi2="+phi2+"&theta2="+theta2+"&phi3="+phi3+"&theta3="+theta3
+        s = "http://localhost:8080/antenna/simulate?phi1=" + str(phi1) + "&theta1=" + str(theta1) + "&phi2=" + str(phi2) + "&theta2=" + str(theta2) + "&phi3=" + str(phi3) + "&theta3=" + str(theta3)
+        request = requests.get(s)
+        gain = request.text
+
+
         # NEED TO RETURN THE GAIN FROM S
-        return s
+        return gain
 
 
 def checkNeighbour(currentPosition):
@@ -105,7 +114,8 @@ def subAngle(angle):
     else:
         return 0
 
-def main:
-    initPosition = randThetaPhi()
 
 
+initPosition = randThetaPhi()
+gainInit = checkGain(initPosition)
+print(gainInit)
