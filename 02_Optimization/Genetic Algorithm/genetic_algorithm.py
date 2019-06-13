@@ -3,7 +3,7 @@ import requests
 import random
 
 #Parameters
-population = 100
+population = 20
 generations = 1000
 
 #The selection process is applied to the list of chromosomes with this rate.
@@ -44,8 +44,6 @@ def geneticAlgorithm():
 
 		#Calculating the fitness for each chromosome of the population.
 		chromosomes = fitness(chromosomes)
-		
-		printChromosomesFitness(chromosomes)
 
 		#Saving the best result until now.
 		if best_chromosome.fitness < chromosomes[0].fitness:
@@ -58,17 +56,14 @@ def geneticAlgorithm():
 	
 	return best_chromosome
 
-def printChromosomesFitness(chromosomes):
-
-	for chromosome in chromosomes:
-		print(chromosome.fitness)
-
 def fitness(chromosomes):
 
 	for chromosome in chromosomes:
-		src = "http://localhost:8080/antenna/simulate?phi1=" + str(chromosome.phi1) + "&theta1=" + str(chromosome.theta1) + "&phi2=" + str(chromosome.phi2) + "&theta2=" + str(chromosome.theta2) + "&phi3=" + str(chromosome.phi3) + "&theta3=" + str(chromosome.theta3)
-		request = requests.get(src)
-		chromosome.fitness = float(request.text[:12])
+
+		src = "https://aydanomachado.com/mlclass/02_Optimization.php?phi1=" + str(chromosome.phi1) + "&theta1=" + str(chromosome.theta1) + "&phi2=" + str(chromosome.phi2) + "&theta2=" + str(chromosome.theta2) + "&phi3=" + str(chromosome.phi3) + "&theta3=" + str(chromosome.theta3) + "&dev_key=Machine big deep data learning vovozinha science"
+		request = json.loads(requests.get(src).text)
+		chromosome.fitness = float(request['gain'])
+		print(chromosome.fitness)
 
 	return sorted(chromosomes, key=lambda chromosome: chromosome.fitness, reverse=True)
 
