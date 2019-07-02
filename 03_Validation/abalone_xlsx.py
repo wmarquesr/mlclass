@@ -23,45 +23,71 @@ def euclidian_distance(element1, element2):
 
     return distance
 
-def KMeansClassifier(k, npdata):
+def KMeansClassifier(k, npdata, tolerance):
 
     #Finding initial centroids.
     centroids = []
-    distances = []
-    label_type1 = np.array([])
-    label_type2 = np.array([])
-    label_type3 = np.array([])
+    type1_mean = 0
+    type2_mean = 0
+    type3_mean = 0
 
     for i in range(0, k):
         centroids.append(randint(0, np.size(npdata, 0)))
+
+    label_type1 = np.array([])
+    label_type2 = np.array([])
+    label_type3 = np.array([])
 
 
     # label_types = np.array(centroids)
     # label_types = np.empty([1, k])
 
-    #Assigning each xi to nearest cluster
-    for i in range(0, np.size(npdata, 0)):
-        distances = []
-        min_dist = sys.maxsize
+    while True:
+        # Assigning each xi to nearest cluster
+        for i in range(0, np.size(npdata, 0)):
+            distances = []
+            min_dist = sys.maxsize
 
-        for j in range(0, len(centroids)):
+            for j in range(0, len(centroids)):
 
-            distances.append(euclidian_distance(npdata[i], npdata[j]))
+                distances.append(euclidian_distance(npdata[i], npdata[centroids[j]]))
 
-            if distances[j] < min_dist:
-                min_dist = distances[j]
+                if distances[j] < min_dist:
+                    min_dist = distances[j]
 
-        for w in range(0, len(centroids)):
-            if distances[w] == min_dist:
-                if w == 0:
-                    np.append(label_type1, npdata[i])
-                    # print(npdata[i])
-                elif w == 1:
-                    np.append(label_type2, npdata[i])
-                else:
-                    np.append(label_type3, npdata[i])
+            for w in range(0, len(centroids)):
+                if distances[w] == min_dist:
+                    if w == 0:
+                        label_type1 = np.append(label_type1, i)
+                        # print(label_type1)
+                    elif w == 1:
+                        label_type2 = np.append(label_type2, i)
+                    else:
+                        label_type3 = np.append(label_type3, i)
 
-    print(label_type1)
+        for i in range(0, len(label_type1)):
+            type1_mean += label_type1[i]
+        type1_mean = type1_mean / len(label_type1)
+        centroids[0] = type1_mean
+
+        for i in range(0, len(label_type2)):
+            type2_mean += label_type2[i]
+        type2_mean = type2_mean / len(label_type2)
+        centroids[1] = type2_mean
+
+        for i in range(0, len(label_type3)):
+            type3_mean += label_type3[i]
+        type3_mean = type3_mean / len(label_type3)
+        centroids[2] = type3_mean
+
+        if (math.fabs(centroids[0] - type1_mean) <= tolerance) and (math.fabs(centroids[1] - type2_mean) <= tolerance) and (math.fabs(centroids[2] - type3_mean) <= tolerance):
+            break
+
+    # print(label_type1[0])
+    print(len(label_type1))
+    print(len(label_type2))
+    print(len(label_type3))
+    print((len(label_type1) + len(label_type2) + len(label_type3)))
 
 
 
@@ -73,16 +99,15 @@ data = pd.read_excel('abalone_dataset.xlsx')
 print(' - Criando X e y para o algoritmo de aprendizagem a partir do arquivo abalone_dataset')
 
 # # Caso queira modificar as colunas consideradas basta algera o array a seguir.
-# feature_cols = ['sex', 'length', 'diameter', 'height',
-#                 'whole_weight', 'shucked_weight', 'viscera_weight', 'shell_weight']
-# X = data[feature_cols]
-# y = data.Outcome
+feature_cols = ['sex', 'length', 'diameter', 'height',
+                'whole_weight', 'shucked_weight', 'viscera_weight', 'shell_weight']
+X = data[feature_cols]
+y = data.Outcome
 
 # Ciando o modelo preditivo para a base trabalhada
 print(' - Criando modelo preditivo')
-# neigh = KNeighborsClassifier(n_neighbors=3)
-# neigh.fit(X, y)
-# discretize_data(data)
+neigh = KNeighborsClassifier(n_neighbors=3)
+neigh.fit(X, y)
 
 # Discretizing sex feature.
 npdata = data.to_numpy()
@@ -90,14 +115,17 @@ npdata[npdata == 'M'] = 1
 npdata[npdata == 'F'] = 2
 npdata[npdata == 'I'] = 3
 
-kmeans = KMeansClassifier(3, npdata)
+kmeans = KMeansClassifier(3, npdata, 0.00001)
 
-#realizando previsões com o arquivo de
-# print(' - Aplicando modelo e enviando para o servidor')
-# data_app = pd.read_excel('abalone_app.xlsx')
+# realizando previsões com o arquivo de
+print(' - Aplicando modelo e enviando para o servidor')
+data_app = pd.read_excel('abalone_app.xlsx')
+y_pred = neigh.predict(data_app)
 
-# # Enviando previsões realizadas com o modelo para o servidor
-# URL = "https://aydanomachado.com/mlclass/03_Validation.php"
+print(y_pred)
+
+# # # Enviando previsões realizadas com o modelo para o servidor
+# # URL = "https://aydanomachado.com/mlclass/03_Validation.php"
 #
 # #TODO Substituir pela sua chave aqui
 # DEV_KEY = "Machine big deep data learning vovozinha science"
@@ -112,5 +140,3 @@ kmeans = KMeansClassifier(3, npdata)
 # # Extraindo e imprimindo o texto da resposta
 # pastebin_url = r.text
 # print(" - Resposta do servidor:\n", r.text, "\n")
-#
-# y_pred = neigh.predict(data_app)
